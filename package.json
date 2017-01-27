@@ -1,5 +1,5 @@
 {
-  "name": "ion-autocomplete",
+  "name": "ion-autocomplete-opt",
   "version": "0.3.3",
   "description": "A configurable Ionic directive for an autocomplete dropdown",
   "keywords": [
