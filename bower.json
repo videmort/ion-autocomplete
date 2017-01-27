@@ -31,10 +31,10 @@
     "Danny Povolotski <dannypovolotski@gmail.com>",
     "Guy Brand <admin@guylabs.org>"
   ],
-  "homepage": "https://github.com/guylabs/ion-autocomplete",
+  "homepage": "https://github.com/videmort/ion-autocomplete",
   "repository": {
     "type": "git",
-    "url": "https://github.com/guylabs/ion-autocomplete.git"
+    "url": "https://github.com/videmort/ion-autocomplete.git"
   },
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.2.4",
