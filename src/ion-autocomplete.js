@@ -35,7 +35,8 @@ angular.module('ion-autocomplete', []).directive('ionAutocomplete', [
                 defaultText : '@',
                 headerText:'@',
                 placeholderModal: '@',
-                firstChildClass:'@'
+                firstChildClass:'@',
+                showSearchBar : '@'
             },
             controllerAs: 'viewModel',
             controller: ['$attrs', '$timeout', '$scope', function ($attrs, $timeout, $scope) {
@@ -89,6 +90,7 @@ angular.module('ion-autocomplete', []).directive('ionAutocomplete', [
 
                 ionAutocompleteController.randomCssClass = 'ion-autocomplete-random-' + Math.floor((Math.random() * 1000) + 1);
                 ionAutocompleteController.isIOS = ionic.Platform.isIOS();
+
                 var template = [
                     '<div class="autocomplete">',
                     '<div class="ion-autocomplete-container ' + ionAutocompleteController.randomCssClass + ' modal" style="display: none;">',
@@ -98,14 +100,14 @@ angular.module('ion-autocomplete', []).directive('ionAutocomplete', [
                     '<h1 class="title text header-autocomplete-text">{{viewModel.headerText}}</h1>',
                     '<button class="button ion-close icon" ng-click="viewModel.cancelClick()"></button>',
                     '</div>',
-                    '<div class="bar bar-header item-input-inset transparent-bck input-container">',
+                    '<div class="bar bar-header item-input-inset transparent-bck input-container" ng-if="viewModel.showSearchBar">',
                     '<label class="item-input-wrapper search-label-auto input-label-auto">',
                     '<input type="search" class="ion-autocomplete-search" ng-model="viewModel.searchQuery" ng-model-options="viewModel.ngModelOptions" placeholder="{{viewModel.placeholderModal}}"/>',
                     '<i class="icon ion-search search-icon"></i>',
                     '</label>',
                     '<div class="ion-autocomplete-loading-icon" ng-if="viewModel.showLoadingIcon && viewModel.loadingIcon"><ion-spinner icon="{{viewModel.loadingIcon}}"></ion-spinner></div>',
                     '</div>',
-                    '<ion-content keyboard-resize delegate-handle="autocompleteModal" class="double-header">',
+                    '<ion-content keyboard-resize delegate-handle="autocompleteModal" class="double-header" ng-class="viewModel.hasSearchBar()">',
                     '<ion-item class="item-divider" ng-hide="viewModel.hideItemLabel">{{viewModel.selectedItemsLabel}}</ion-item>',
                     '<ion-item ng-if="viewModel.isArray(viewModel.selectedItems)" ng-repeat="selectedItem in viewModel.selectedItems track by $index" class="item-icon-left item-icon-right item-text-wrap">',
                     '<i class="icon ion-checkmark"></i>',
@@ -137,6 +139,8 @@ angular.module('ion-autocomplete', []).directive('ionAutocomplete', [
                     '</div>'
                 ].join('');
 
+
+
                 // load the template synchronously or asynchronously
                 $q.when().then(function () {
 
@@ -159,6 +163,11 @@ angular.module('ion-autocomplete', []).directive('ionAutocomplete', [
                             return attrs.firstChildClass;
                         }
                         return '';
+                    }
+                    ionAutocompleteController.hasSearchBar = function () {
+                        if (!angular.isDefined(ionAutocompleteController.showSearchBar )) {
+                            return 'top-70';
+                        }
                     }
 
                     // returns the value of an item
